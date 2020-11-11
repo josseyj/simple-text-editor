@@ -27,6 +27,8 @@ public class TextEditor {
     }
 
     public void deleteLastCharacter() {
-        text.deleteCharAt(text.length() - 1);
+        if (text.length() > 0) {
+            text.deleteCharAt(text.length() - 1);
+        }
     }
 }

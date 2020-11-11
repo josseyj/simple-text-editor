@@ -37,6 +37,28 @@ public class AppTest {
                                 .expectedResult("Hey yo")
                                 .build()
                 },
+                {
+                        TestData.builder()
+                                .testCase("BACKSPACE should remove the last character of the current text")
+                                .input(new String[][]{
+                                        {"0", "APPEND", "Hey you"},
+                                        {"1", "BACKSPACE"},
+                                        {"2", "BACKSPACE"}
+                                })
+                                .expectedResult("Hey y")
+                                .build()
+                },
+                {
+                        TestData.builder()
+                                .testCase("BACKSPACE should do nothing if there are no characters to delete")
+                                .input(new String[][]{
+                                        {"0", "APPEND", "!"},
+                                        {"1", "BACKSPACE"},
+                                        {"2", "BACKSPACE"}
+                                })
+                                .expectedResult("")
+                                .build()
+                },
         };
     }
 
