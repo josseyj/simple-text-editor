@@ -4,7 +4,6 @@ import org.josseyjacob.experiments.texteditor.commands.Command;
 import org.josseyjacob.experiments.texteditor.commands.NoOpCommand;
 import org.josseyjacob.experiments.texteditor.commands.UndoableCommand;
 
-import java.util.LinkedList;
 import java.util.Optional;
 
 public class TextEditor {

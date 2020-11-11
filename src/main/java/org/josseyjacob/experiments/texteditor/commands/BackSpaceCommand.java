@@ -4,9 +4,13 @@ import org.josseyjacob.experiments.texteditor.TextEditor;
 
 import java.util.Optional;
 
-public class BackSpaceCommand implements UndoableCommand {
+public class BackSpaceCommand extends AbstractCommand implements UndoableCommand {
 
     private Character deletedChar;
+
+    public BackSpaceCommand(Long timestamp) {
+        super(timestamp);
+    }
 
     @Override
     public void execute(TextEditor editor) {

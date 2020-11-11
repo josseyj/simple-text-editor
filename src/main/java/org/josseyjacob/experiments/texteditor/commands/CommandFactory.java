@@ -6,6 +6,7 @@ public class CommandFactory {
         if (commandInput == null || commandInput.length < 2) {
             throw new IllegalArgumentException("Invalid command input.");
         }
+        final long timestamp = Long.parseLong(commandInput[0]);
         final String commandKey = commandInput[1];
         switch (commandKey) {
             case "APPEND":
@@ -13,16 +14,16 @@ public class CommandFactory {
                     throw new IllegalArgumentException("Invalid APPEND command format.");
                 }
                 final String value = commandInput[2];
-                return new AppendCommand(value);
+                return new AppendCommand(value, timestamp);
 
             case "BACKSPACE":
-                return new BackSpaceCommand();
+                return new BackSpaceCommand(timestamp);
 
             case "UNDO":
-                return new UndoCommand();
+                return new UndoCommand(timestamp);
 
             case "REDO":
-                return new RedoCommand();
+                return new RedoCommand(timestamp);
 
             default:
                 throw new UnsupportedOperationException("Unsupported Command");

@@ -2,11 +2,12 @@ package org.josseyjacob.experiments.texteditor.commands;
 
 import org.josseyjacob.experiments.texteditor.TextEditor;
 
-public class AppendCommand implements UndoableCommand {
+public class AppendCommand extends AbstractCommand implements UndoableCommand {
 
     private final String value;
 
-    public AppendCommand(String value) {
+    public AppendCommand(String value, long timestamp) {
+        super(timestamp);
         this.value = value;
     }
 

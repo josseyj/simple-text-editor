@@ -1,5 +1,9 @@
 package org.josseyjacob.experiments.texteditor;
 
+import org.josseyjacob.experiments.texteditor.commands.Command;
+
+import java.util.Comparator;
+
 /**
  * Hello world!
  */
@@ -17,6 +21,7 @@ public class App {
      */
     public String process(String[][] input) {
         commandInterpreter.parse(input)
+                .sorted(Comparator.comparing(Command::getTimestamp))
                 .forEach(textEditor::execute);
         return textEditor.getCurrentText();
     }

@@ -6,4 +6,8 @@ public interface Command {
 
     void execute(TextEditor editor);
 
+    default Long getTimestamp() {
+        return 0L;
+    }
+
 }

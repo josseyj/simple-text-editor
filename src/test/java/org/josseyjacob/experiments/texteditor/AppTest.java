@@ -120,6 +120,16 @@ public class AppTest {
                                 .expectedResult(" there")
                                 .build()
                 },
+                {
+                        TestData.builder()
+                                .testCase("input should be applied in chronological order according to the UNIX timestamp provided in the first array element")
+                                .input(new String[][]{
+                                        {"1548185072722", "APPEND", "ey"},
+                                        {"1548185072721", "APPEND", "H"},
+                                })
+                                .expectedResult("Hey")
+                                .build()
+                },
         };
     }
 
