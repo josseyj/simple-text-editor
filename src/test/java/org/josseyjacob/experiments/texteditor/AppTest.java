@@ -130,6 +130,28 @@ public class AppTest {
                                 .expectedResult("Hey")
                                 .build()
                 },
+                {
+                        TestData.builder()
+                                .testCase("6a. SELECT and BACKSPACE should remove the selected characters")
+                                .input(new String[][]{
+                                        {"1548185072721", "APPEND", "Hello"},
+                                        {"1548185072722", "SELECT", "1", "3"},
+                                        {"1548185072723", "BACKSPACE"},
+                                })
+                                .expectedResult("Hlo")
+                                .build()
+                },
+                {
+                        TestData.builder()
+                                .testCase("6b. SELECT and APPEND should replace the selected characters with the appended characters")
+                                .input(new String[][]{
+                                        {"1548185072721", "APPEND", "Hello"},
+                                        {"1548185072722", "SELECT", "2", "5"},
+                                        {"1548185072723", "APPEND", "y there"},
+                                })
+                                .expectedResult("Hey there")
+                                .build()
+                },
         };
     }
 

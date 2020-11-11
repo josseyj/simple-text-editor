@@ -6,6 +6,8 @@ public class AppendCommand extends AbstractCommand implements UndoableCommand {
 
     private final String value;
 
+    private int appendedPosition;
+
     public AppendCommand(String value, long timestamp) {
         super(timestamp);
         this.value = value;
@@ -13,11 +15,13 @@ public class AppendCommand extends AbstractCommand implements UndoableCommand {
 
     @Override
     public void execute(TextEditor editor) {
+        this.appendedPosition = editor.getCursorPosition();
         editor.append(value);
     }
 
     @Override
     public void undo(TextEditor editor) {
-        editor.deleteLastCharacters(value.length());
+        editor.select(appendedPosition, appendedPosition + value.length());
+        editor.delete();
     }
 }

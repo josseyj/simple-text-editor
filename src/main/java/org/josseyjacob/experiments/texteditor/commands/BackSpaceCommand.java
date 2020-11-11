@@ -6,7 +6,9 @@ import java.util.Optional;
 
 public class BackSpaceCommand extends AbstractCommand implements UndoableCommand {
 
-    private Character deletedChar;
+    private String deletedValue;
+
+    private int deletedPosition;
 
     public BackSpaceCommand(Long timestamp) {
         super(timestamp);
@@ -14,13 +16,16 @@ public class BackSpaceCommand extends AbstractCommand implements UndoableCommand
 
     @Override
     public void execute(TextEditor editor) {
-        this.deletedChar = editor.deleteLastCharacter().orElse(null);
+        this.deletedValue = editor.delete().orElse(null);
+        this.deletedPosition = editor.getCursorPosition();
     }
 
     @Override
     public void undo(TextEditor editor) {
-        Optional.ofNullable(deletedChar)
-                .map(String::valueOf)
-                .ifPresent(editor::append);
+        Optional.ofNullable(deletedValue)
+                .ifPresent(value -> {
+                    editor.setCursorAt(deletedPosition);
+                    editor.append(value);
+                });
     }
 }
