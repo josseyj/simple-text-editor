@@ -2,8 +2,7 @@ package org.josseyjacob.experiments.texteditor.commands;
 
 import org.josseyjacob.experiments.texteditor.TextEditor;
 
-public interface Command {
+public interface UndoableCommand extends Command {
 
-    void execute(TextEditor editor);
-
+    void undo(TextEditor editor);
 }

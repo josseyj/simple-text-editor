@@ -2,10 +2,21 @@ package org.josseyjacob.experiments.texteditor.commands;
 
 import org.josseyjacob.experiments.texteditor.TextEditor;
 
-public class BackSpaceCommand implements Command {
+import java.util.Optional;
+
+public class BackSpaceCommand implements UndoableCommand {
+
+    private Character deletedChar;
 
     @Override
     public void execute(TextEditor editor) {
-        editor.deleteLastCharacter();
+        this.deletedChar = editor.deleteLastCharacter().orElse(null);
+    }
+
+    @Override
+    public void undo(TextEditor editor) {
+        Optional.ofNullable(deletedChar)
+                .map(String::valueOf)
+                .ifPresent(editor::append);
     }
 }

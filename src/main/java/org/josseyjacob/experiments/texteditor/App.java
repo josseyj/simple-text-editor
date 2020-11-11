@@ -7,7 +7,7 @@ public class App {
 
     final TextEditor textEditor = new TextEditor();
 
-    final CommandInterpreter commandInterpreter = new CommandInterpreter(textEditor);
+    final CommandParser commandInterpreter = new CommandParser();
 
     /**
      * Processes the text editor command inputs.
@@ -16,7 +16,9 @@ public class App {
      * @return the current text
      */
     public String process(String[][] input) {
-        commandInterpreter.process(input);
+        commandInterpreter.parse(input)
+                .forEach(textEditor::execute);
         return textEditor.getCurrentText();
     }
+
 }

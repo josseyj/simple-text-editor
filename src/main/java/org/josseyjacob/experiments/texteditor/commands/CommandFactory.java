@@ -18,6 +18,12 @@ public class CommandFactory {
             case "BACKSPACE":
                 return new BackSpaceCommand();
 
+            case "UNDO":
+                return new UndoCommand();
+
+            case "REDO":
+                return new RedoCommand();
+
             default:
                 throw new UnsupportedOperationException("Unsupported Command");
         }

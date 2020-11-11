@@ -4,6 +4,7 @@ package org.josseyjacob.experiments.texteditor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
+import lombok.ToString;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -59,6 +60,66 @@ public class AppTest {
                                 .expectedResult("")
                                 .build()
                 },
+                {
+                        TestData.builder()
+                                .testCase("UNDO should undo the previous APPEND or BACKSPACE operation")
+                                .input(new String[][]{
+                                        {"0", "APPEND", "Hey"},
+                                        {"1", "APPEND", " there"},
+                                        {"2", "APPEND", "!"},
+                                        {"3", "UNDO"},
+                                        {"4", "UNDO"},
+                                })
+                                .expectedResult("Hey")
+                                .build()
+                },
+                {
+                        TestData.builder()
+                                .testCase("UNDO should do nothing if there are more UNDOs than APPEND and BACKSPACE operations")
+                                .input(new String[][]{
+                                        {"0", "APPEND", "Hey"},
+                                        {"1", "UNDO"},
+                                        {"2", "UNDO"}
+                                })
+                                .expectedResult("")
+                                .build()
+                },
+                {
+                        TestData.builder()
+                                .testCase("REDO should redo the previous UNDO operation")
+                                .input(new String[][]{
+                                        {"0", "APPEND", "Hey"},
+                                        {"1", "APPEND", " there"},
+                                        {"2", "UNDO"},
+                                        {"3", "REDO"}
+                                })
+                                .expectedResult("Hey there")
+                                .build()
+                },
+                {
+                        TestData.builder()
+                                .testCase("REDO should do nothing when there are more REDOs than UNDOs")
+                                .input(new String[][]{
+                                        {"0", "APPEND", "Hey"},
+                                        {"1", "UNDO"},
+                                        {"2", "REDO"},
+                                        {"3", "REDO"},
+                                })
+                                .expectedResult("Hey")
+                                .build()
+                },
+                {
+                        TestData.builder()
+                                .testCase("REDO should only work immediately after an UNDO or REDO operation")
+                                .input(new String[][]{
+                                        {"0", "APPEND", "Hey"},
+                                        {"1", "UNDO"},
+                                        {"2", "APPEND", " there"},
+                                        {"3", "REDO"},
+                                })
+                                .expectedResult(" there")
+                                .build()
+                },
         };
     }
 
@@ -79,6 +140,7 @@ public class AppTest {
 
     @Builder
     @Getter
+    @ToString(of = "testCase")
     private static class TestData {
 
         @NonNull
